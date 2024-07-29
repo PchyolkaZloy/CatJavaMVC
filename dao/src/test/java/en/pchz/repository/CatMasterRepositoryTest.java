@@ -21,7 +21,11 @@ public class CatMasterRepositoryTest extends IntegrationTestBase {
     public void FindCatMaster_ValidValues_Success() {
         // Arrange
         final Integer catMasterId = 1;
-        CatMaster exceptedCatMaster = new CatMaster(1, "John", LocalDate.of(1990, 5, 15));
+        CatMaster exceptedCatMaster = CatMaster.builder()
+                .id(catMasterId)
+                .name("John")
+                .birthDate(LocalDate.of(1990, 5, 15))
+                .build();
 
         // Act
         var actualCatMaster = catMasterRepository.findById(catMasterId);
@@ -38,7 +42,10 @@ public class CatMasterRepositoryTest extends IntegrationTestBase {
     public void CreateCatMasterAndSave_ValidValues_Success() {
         // Arrange
         final Integer newCatMasterId = 4;
-        CatMaster newCatMaster = new CatMaster("Vova", LocalDate.now());
+        CatMaster newCatMaster = CatMaster.builder()
+                .name("Vova")
+                .birthDate(LocalDate.now())
+                .build();
 
         // Act
         catMasterRepository.save(newCatMaster);
@@ -61,7 +68,11 @@ public class CatMasterRepositoryTest extends IntegrationTestBase {
 
         final String newCatMasterName = "Vovan";
         final LocalDate newCatMasterBirthDate = LocalDate.now();
-        CatMaster catMaster = new CatMaster(catMasterId, newCatMasterName, newCatMasterBirthDate);
+        CatMaster catMaster = CatMaster.builder()
+                .id(catMasterId)
+                .name(newCatMasterName)
+                .birthDate(newCatMasterBirthDate)
+                .build();
 
         // Act
         catMasterRepository.save(catMaster);
@@ -82,7 +93,11 @@ public class CatMasterRepositoryTest extends IntegrationTestBase {
     public void DeleteCatMaster_ValidValues_Success() {
         // Arrange
         final Integer catMasterId = 2;
-        CatMaster catMaster = new CatMaster(catMasterId, "Alice", LocalDate.of(1985, 10, 20));
+        CatMaster catMaster = CatMaster.builder()
+                .id(catMasterId)
+                .name("Alice")
+                .birthDate(LocalDate.of(1985, 10, 20))
+                .build();
 
         // Act
         var preDeleteActualCatMaster = catMasterRepository.findById(catMasterId);

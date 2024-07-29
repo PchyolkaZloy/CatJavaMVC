@@ -21,7 +21,13 @@ public class CatRepositoryTest extends IntegrationTestBase {
     @Test
     public void FindCat_ValidValues_Success() {
         // Arrange
-        Cat cat = new Cat(1, "Fluffy", LocalDate.of(2019, 7, 1), "Persian", "white");
+        Cat cat = Cat.builder()
+                .id(1)
+                .name("Fluffy")
+                .birthDate(LocalDate.of(2019, 7, 1))
+                .breed("Persian")
+                .color(CatColor.WHITE)
+                .build();
 
         // Act
         var actualCat = catRepository.findById(1);
@@ -39,17 +45,22 @@ public class CatRepositoryTest extends IntegrationTestBase {
     @Test
     public void CreateCatAndSave_ValidValues_Success() {
         // Arrange
-        final Integer exceptedCatId = 1;
-        final String exceptedCatName = "Бобик";
+        final Integer exceptedCatId = 5;
+        final String exceptedCatName = "Bobik";
         final LocalDate exceptedCatBirthDate = LocalDate.now();
         final CatColor exceptedColor = CatColor.BLUE;
-        Cat cat = new Cat("Бобик", LocalDate.now(), "дворяга", "blue");
+        Cat cat = Cat.builder()
+                .name(exceptedCatName)
+                .birthDate(LocalDate.now())
+                .breed("noname")
+                .color(CatColor.BLUE)
+                .build();
 
         // Act
         catRepository.save(cat);
 
         // Assert
-        var actualCat = catRepository.findById(1);
+        var actualCat = catRepository.findById(exceptedCatId);
 
         assertFalse(actualCat.isEmpty());
         actualCat.ifPresent(actual -> assertEquals(exceptedCatId, actual.getId()));
@@ -66,9 +77,15 @@ public class CatRepositoryTest extends IntegrationTestBase {
         final String oldCatName = "Fluffy";
         final CatColor oldCatColor = CatColor.WHITE;
 
-        final String newCatName = "Жучка";
+        final String newCatName = "Floof";
         final CatColor newCatColor = CatColor.BLACK;
-        Cat cat = new Cat(catId, newCatName, LocalDate.of(2019, 7, 1), "Persian", newCatColor.toString());
+        Cat cat = Cat.builder()
+                .id(catId)
+                .name(newCatName)
+                .birthDate(LocalDate.of(2019, 7, 1))
+                .breed("Persian")
+                .color(newCatColor)
+                .build();
 
         // Act
         catRepository.save(cat);
@@ -88,7 +105,13 @@ public class CatRepositoryTest extends IntegrationTestBase {
     public void DeleteCat_ValidValues_Success() {
         // Arrange
         final Integer catId = 1;
-        Cat cat = new Cat(catId, "Fluffy", LocalDate.of(2019, 7, 1), "Persian", "White");
+        Cat cat = Cat.builder()
+                .id(catId)
+                .name("Fluffy")
+                .birthDate(LocalDate.of(2019, 7, 1))
+                .breed("Persian")
+                .color(CatColor.WHITE)
+                .build();
 
         // Act
         var preDeleteActualCat = catRepository.findById(catId);

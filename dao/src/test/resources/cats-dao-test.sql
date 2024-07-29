@@ -1,10 +1,29 @@
+create or replace function truncate_if_exists(tablename text)
+    returns void as
+'
+    declare
+        _is_exist bool;
+    begin
+        select count(*) > 0 into _is_exist
+        from information_schema.tables
+        where table_name = tablename;
+        if _is_exist then
+            execute format(''truncate %I restart identity cascade'', tablename);
+        end if;
+    end ;
+' language plpgsql;
+
+select truncate_if_exists('cat_master');
+select truncate_if_exists('cat');
+select truncate_if_exists('users');
+
+
 create table if not exists cat_master
 (
     id         SERIAL PRIMARY KEY,
     name       VARCHAR(255) NOT NULL,
     birth_date DATE         NOT NULL
 );
----SELECT SETVAL('cat_master_id_seq', (SELECT MAX(id) FROM cat_master));
 
 create table if not exists cat
 (
@@ -15,7 +34,6 @@ create table if not exists cat
     color         VARCHAR(255),
     cat_master_id INTEGER REFERENCES cat_master (id)
 );
----SELECT SETVAL('cat_id_seq', (SELECT MAX(id) FROM cat));
 
 create table if not exists cat_cat_friends
 (

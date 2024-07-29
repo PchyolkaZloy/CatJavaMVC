@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @ComponentScan(basePackages = "en.pchz.repository")
 @EnableJpaRepositories(basePackages = "en.pchz.repository")
-@EntityScan(basePackages = "en.pchz.lab4.entity")
+@EntityScan(basePackages = "en.pchz.entity")
 @Import(OrmConfig.class)
 public class TestConfig {
 }

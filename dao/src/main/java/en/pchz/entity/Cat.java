@@ -3,9 +3,7 @@ package en.pchz.entity;
 import en.pchz.common.CatColor;
 import en.pchz.common.CatColorType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.Type;
 
@@ -15,6 +13,8 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "cat")
 public class Cat {
@@ -43,29 +43,11 @@ public class Cat {
     )
     private Set<Cat> catFriends;
 
-
-    public Cat(Integer id, String name, LocalDate birthDate, String breed, String color) {
-        this.id = id;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.breed = breed;
-        this.color = CatColor.fromString(color);
-    }
-
     public Cat(String name, LocalDate birthDate, String breed, String color, CatMaster catMaster, Set<Cat> catFriends) {
         this.name = name;
         this.birthDate = birthDate;
         this.breed = breed;
         this.color = CatColor.fromString(color);
-        this.catMaster = catMaster;
-        this.catFriends = catFriends;
-    }
-
-    public Cat(String name, LocalDate birthDate, String breed, CatColor color, CatMaster catMaster, Set<Cat> catFriends) {
-        this.name = name;
-        this.birthDate = birthDate;
-        this.breed = breed;
-        this.color = color;
         this.catMaster = catMaster;
         this.catFriends = catFriends;
     }

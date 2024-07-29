@@ -43,17 +43,21 @@ public class CatExtension {
 
     public static Cat asEntity(CatDto catDto) {
         if (catDto == null) {
-            return new Cat(null, null, null, null, null);
+            return Cat.builder().build();
         }
-        return new Cat(
-                catDto.getName(),
-                catDto.getBirthDate(),
-                catDto.getBreed(),
-                CatColorDto.transferToEntity(catDto.getColor()),
-                catDto.getCatMaster() == null ? null : CatMasterExtension.asEntity(catDto.getCatMaster()),
-                catDto.getCatFriends() == null ? null :
-                        catDto.getCatFriends().stream()
-                                .map(CatExtension::asEntity)
-                                .collect(Collectors.toSet()));
+        return Cat.builder()
+                .name(catDto.getName())
+                .birthDate(catDto.getBirthDate())
+                .breed(catDto.getBreed())
+                .color(CatColorDto.transferToEntity(catDto.getColor()))
+                .catMaster(
+                        catDto.getCatMaster() == null ? null : CatMasterExtension.asEntity(catDto.getCatMaster())
+                )
+                .catFriends(
+                        catDto.getCatFriends() == null ? null :
+                                catDto.getCatFriends().stream()
+                                        .map(CatExtension::asEntity)
+                                        .collect(Collectors.toSet()))
+                .build();
     }
 }
