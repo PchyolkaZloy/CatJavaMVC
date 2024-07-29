@@ -1,5 +1,6 @@
 package en.pchz.service;
 
+import en.pchz.common.CatColor;
 import en.pchz.dto.CatColorDto;
 import en.pchz.dto.CatDto;
 import en.pchz.entity.Cat;
@@ -32,16 +33,23 @@ public class CatServiceTests {
     @Test
     void FindCatById_ValidValues_Success() {
         // Arrange
+        final Integer catId = 1;
         final String exceptedName = "Whiskers";
-        final LocalDate exceptedBirthDate = LocalDate.MIN;
+        final LocalDate exceptedBirthDate = LocalDate.of(2019, 1, 1);
         final String exceptedBreed = "Persian";
-        final CatColorDto exceptedColor = CatColorDto.GRAY;
+        final CatColorDto exceptedColor = CatColorDto.BEIGE;
+
+        Cat cat = Cat.builder()
+                .id(catId)
+                .name("Whiskers")
+                .birthDate(LocalDate.of(2019, 1, 1))
+                .breed("Persian")
+                .color(CatColor.BEIGE)
+                .build();
+        when(catRepository.findById(catId)).thenReturn(Optional.of(cat));
 
         // Act
-        Cat cat = new Cat("Whiskers", LocalDate.MIN, "Persian", "Gray");
-        when(catRepository.findById(1)).thenReturn(Optional.of(cat));
-
-        CatDto result = catService.findCatById(1);
+        CatDto result = catService.findCatById(catId);
 
         // Assert
         assertEquals(exceptedName, result.getName());
@@ -53,11 +61,12 @@ public class CatServiceTests {
     @Test
     void createCat_ValidValues_Success() {
         // Arrange
-        CatDto catDto = CatDto.builder().build();
-        catDto.setName("Whiskers");
-        catDto.setBirthDate(LocalDate.MIN);
-        catDto.setBreed("Persian");
-        catDto.setColor(CatColorDto.GRAY);
+        CatDto catDto = CatDto.builder()
+                .name("Whiskers")
+                .birthDate(LocalDate.of(2019, 1, 1))
+                .breed("Persian")
+                .color(CatColorDto.BEIGE)
+                .build();
 
         // Act
         catService.createCat(catDto);
@@ -85,21 +94,38 @@ public class CatServiceTests {
     @Test
     void findAllFriends_ValidValues_Success() {
         // Arrange
-        Cat cat = new Cat("Whiskers", LocalDate.MIN, "Persian", "Gray");
-        cat.setCatFriends(new HashSet<>());
+        final Integer catId = 1;
+        final Integer catFriendsAmount = 2;
+        Cat cat = Cat.builder()
+                .name("Whiskers")
+                .birthDate(LocalDate.of(2019, 1, 1))
+                .breed("Persian")
+                .color(CatColor.BEIGE)
+                .catFriends(new HashSet<>())
+                .build();
 
-        Cat friend1 = new Cat("Killer", LocalDate.MIN, "Indian", "Black");
-        Cat friend2 = new Cat("Boomer", LocalDate.MIN, "American", "Red");
+        Cat friend1 = Cat.builder()
+                .name("Killer")
+                .birthDate(LocalDate.of(2019, 2, 1))
+                .breed("Indian")
+                .color(CatColor.BLACK)
+                .build();
+        Cat friend2 = Cat.builder()
+                .name("Boomer")
+                .birthDate(LocalDate.of(2019, 3, 1))
+                .breed("American")
+                .color(CatColor.WHITE)
+                .build();
 
         cat.getCatFriends().add(friend1);
         cat.getCatFriends().add(friend2);
-        when(catRepository.findById(1)).thenReturn(Optional.of(cat));
+        when(catRepository.findById(catId)).thenReturn(Optional.of(cat));
 
         // Act
-        List<CatDto> result = catService.findAllFriends(1);
+        List<CatDto> result = catService.findAllFriends(catId);
 
         // Assert
-        assertEquals(2, result.size());
+        assertEquals(catFriendsAmount, result.size());
     }
 
     @Test

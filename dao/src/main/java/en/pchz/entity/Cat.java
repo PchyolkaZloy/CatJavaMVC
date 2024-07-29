@@ -43,22 +43,6 @@ public class Cat {
     )
     private Set<Cat> catFriends;
 
-    public Cat(String name, LocalDate birthDate, String breed, String color, CatMaster catMaster, Set<Cat> catFriends) {
-        this.name = name;
-        this.birthDate = birthDate;
-        this.breed = breed;
-        this.color = CatColor.fromString(color);
-        this.catMaster = catMaster;
-        this.catFriends = catFriends;
-    }
-
-    public Cat(String name, LocalDate birthDate, String breed, String color) {
-        this.name = name;
-        this.birthDate = birthDate;
-        this.breed = breed;
-        this.color = CatColor.fromString(color);
-    }
-
     @Override
     public String toString() {
         return "Cat{" +

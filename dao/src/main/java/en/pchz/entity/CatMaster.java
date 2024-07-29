@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -27,20 +26,6 @@ public class CatMaster {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private Set<Cat> cats;
-
-    public CatMaster(String name, LocalDate birthDate) {
-        this.name = name;
-        this.birthDate = birthDate;
-        this.cats = new HashSet<>();
-    }
-
-    public CatMaster(Integer id, String name, LocalDate birthDate) {
-        this.id = id;
-        this.name = name;
-        this.birthDate = birthDate;
-        this.cats = new HashSet<>();
-    }
-
 
     @Override
     public String toString() {
