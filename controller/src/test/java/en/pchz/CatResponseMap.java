@@ -1,4 +1,4 @@
-package en.pchz.lab4;
+package en.pchz;
 
 import en.pchz.common.response.CatResponse;
 

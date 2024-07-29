@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@ComponentScan(basePackages = "en.pchz.lab4.repository")
-@EnableJpaRepositories(basePackages = "en.pchz.lab4.repository")
+@ComponentScan(basePackages = "en.pchz.repository")
+@EnableJpaRepositories(basePackages = "en.pchz.repository")
 @EntityScan(basePackages = "en.pchz.lab4.entity")
 @Import(OrmConfig.class)
 public class TestConfig {

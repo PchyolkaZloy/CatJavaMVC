@@ -1,13 +1,13 @@
-package en.pchz.lab4.service;
+package en.pchz.service;
 
-import en.pchz.lab4.dto.CatColorDto;
-import en.pchz.lab4.dto.CatDto;
-import en.pchz.lab4.dto.CatMasterDto;
-import en.pchz.lab4.entity.Cat;
-import en.pchz.lab4.entity.CatMaster;
-import en.pchz.lab4.extension.CatExtension;
-import en.pchz.lab4.repository.CatMasterRepository;
-import en.pchz.lab4.repository.CatRepository;
+import en.pchz.dto.CatColorDto;
+import en.pchz.dto.CatDto;
+import en.pchz.dto.CatMasterDto;
+import en.pchz.entity.Cat;
+import en.pchz.entity.CatMaster;
+import en.pchz.extension.CatExtension;
+import en.pchz.repository.CatMasterRepository;
+import en.pchz.repository.CatRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
