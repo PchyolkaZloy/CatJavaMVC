@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/cats
+    username: cat
+    password: cat
+  jpa:
+    open-in-view: off
+    hibernate:
+      ddl-auto: update
