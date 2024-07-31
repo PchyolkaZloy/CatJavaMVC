@@ -684,10 +684,11 @@ DELETE /admin/userMenu/1
 
 ## Folder Structure
 
-- `controller/src/main/java/en/pchz/ApplicationRunner`: Contains the start main method code.
 - `controller`: REST controllers. Security configuration.
 - `service`: Service layer.
 - `dao`: Data Access Objects (DAOs). Entity and DTO classes.
+
+- `controller/src/main/java/en/pchz/ApplicationRunner`: Contains the start main method code.
 
 ## License
 
